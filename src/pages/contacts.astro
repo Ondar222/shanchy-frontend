@@ -1,0 +1,25 @@
+---
+import PageName from "../components/PageName/PageName.astro";
+import MainPageLayout from "../layouts/MainPageLayout.astro";
+import StandartLayout from "../layouts/StandartLayout.astro";
+
+const contacts = await fetch(
+  `${import.meta.env.PUBLIC_URL}/api/contact?populate=*`
+)
+  .then((res) => res.json())
+  .then((res) => res.data)
+  .catch((err) => console.error(err));
+---
+
+<StandartLayout title="Контакты">
+  <PageName title="Контакты" />
+  <MainPageLayout>
+    <div class="xs:w-full md:w-10/12">
+      <div set:html={contacts.content} />
+      <div class="flex flex-col gap-5 text-xl font-semibold">
+        <p>Администрация Чаа-Хольского кожууна</p>
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A61b22f79dc8dc27508ece3f8d0ef49be8a4bacd1389f1559adda42d1f444732b&amp;source=constructor" width="900" height="400" frameborder="0"></iframe>
+      </div>
+    </div>
+  </MainPageLayout>
+</StandartLayout>
